@@ -2,13 +2,13 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-
+  # Cria uma máquina virtual usando a imagem do Ubuntu 64 bits
   config.vm.box = "hashicorp/precise64"
 
-  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 80, host: 1234
 
-  Vagrant::Config.run do |config|
-    config.vm.box = "lucid32"
-  end
+  # Checa atualizações
+  # `vagrant box outdated` é equivalente porém é recomendável checar automaticamente.
+  config.vm.box_check_update = true
 
 end
