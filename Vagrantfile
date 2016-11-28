@@ -7,6 +7,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.network "forwarded_port", guest: 80, host: 1234
 
+  config.vm.provision "shell", path: "android-studio.sh"
+
   # Checa atualizações
   # `vagrant box outdated` é equivalente porém é recomendável checar automaticamente.
   config.vm.box_check_update = true
