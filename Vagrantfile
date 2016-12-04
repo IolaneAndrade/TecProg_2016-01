@@ -27,14 +27,27 @@ Vagrant.configure("2") do |config|
   end	
 
 	config.vm.provision :chef_solo do |chef|
-	    chef.cookbooks_path = ["cookbooks"]
+	    chef.cookbooks_path = "cookbooks"
+	    chef.add_recipe 'android-sdk'
+            
+		chef.json = {
+		      'java' => {
+			'jdk_version' => '7'
+		      },
+		      'android-sdk' => {
+			'owner' => 'vagrant',
+			'group' => 'vagrant',
+			'components' => ['android-20', 'android-19'],
+			# 'setup_root' => '/opt/somewhere',
+			# 'with_symlink' => false,
+			# 'java_from_system' => true,
+			'maven_rescue' => true,
+			'maven_local_repository' => '/home/vagrant/.m2/repository'
+		      }
+		}
 
-	    chef.add_recipe "apt"
-	    chef.add_recipe "nodejs"
-	    chef.add_recipe "vim"
-	    chef.add_recipe "rbenv::default"
-	    chef.add_recipe "heroku"
+	    chef.add_recipe "git"
+	    
+	   
 	  end
-     config.vm.provision "shell", path: "chefAndroidLinux/install-components.sh"
-
  end
