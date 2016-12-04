@@ -25,9 +25,9 @@ Vagrant.configure("2") do |config|
         web_config.vm.network "private_network", ip: "189.6.24.246"
 
   end	
-
 	config.vm.provision :chef_solo do |chef|
 	    chef.cookbooks_path = "cookbooks"
+	    chef.add_recipe 'maven'
 	    chef.add_recipe 'android-sdk'
             
 		chef.json = {
@@ -45,9 +45,5 @@ Vagrant.configure("2") do |config|
 			'maven_local_repository' => '/home/vagrant/.m2/repository'
 		      }
 		}
-
-	    chef.add_recipe "git"
-	    
-	   
-	  end
+	end
  end
